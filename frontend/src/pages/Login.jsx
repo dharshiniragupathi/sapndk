@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import loginImage from "../assets/login-illustration.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { clearAuthSession, setAuthSession } from "../utils/authStorage";
 import "./Login.css";
 function Login() {
   const [email, setEmail] = useState("");
@@ -11,15 +12,16 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const handleLogin = async (e) => {
     e.preventDefault();
+    const normalizedEmail = String(email || "").trim().toLowerCase();
 
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", {
-        email,
+        email: normalizedEmail,
         password,
       });
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.role);
+      clearAuthSession();
+      setAuthSession(res.data.token, res.data.role);
 
       if (res.data.role === "student") {
         navigate("/student");
@@ -33,8 +35,9 @@ function Login() {
 
 
     } 
-    catch {
-      alert("Invalid credentials");
+    catch (error) {
+      const message = error?.response?.data?.message || "Invalid credentials";
+      alert(message);
     }
   };
 

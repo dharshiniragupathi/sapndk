@@ -15,17 +15,21 @@ exports.addMarks = async (req, res) => {
             return res.status(400).json({ message: 'Invalid exam selected' });
         }
 
-        const maxMarks = examResult.rows[0].max_marks;
+        const maxMarks = Number(examResult.rows[0].max_marks);
+        const parsedMarks = Number(marks_obtained);
+        if (!Number.isFinite(parsedMarks) || parsedMarks < 0 || parsedMarks > maxMarks) {
+            return res.status(400).json({ message: `marks_obtained must be between 0 and ${maxMarks}` });
+        }
 
         // 2️⃣ Normalize score
-        const normalized_score = normalizeScore(marks_obtained, maxMarks);
+        const normalized_score = normalizeScore(parsedMarks, maxMarks);
 
         // 3️⃣ Insert marks
         await pool.query(
             `INSERT INTO marks 
             (student_id, subject_id, exam_id, marks_obtained, normalized_score)
             VALUES ($1, $2, $3, $4, $5)`,
-            [student_id, subject_id, exam_id, marks_obtained, normalized_score]
+            [student_id, subject_id, exam_id, parsedMarks, normalized_score]
         );
 
         res.status(201).json({

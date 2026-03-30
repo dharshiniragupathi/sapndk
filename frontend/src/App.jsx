@@ -11,7 +11,14 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />} />
 
-      <Route path="/student" element={<DashboardLayout />}>
+      <Route
+        path="/student"
+        element={
+          <ProtectedRoute roleRequired="student">
+            <DashboardLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<StudentDashboard />} />
       </Route>
 

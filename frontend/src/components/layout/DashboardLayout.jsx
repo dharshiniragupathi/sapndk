@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import logoImage from "../../assets/logo.png";
+import { getAuthRole } from "../../utils/authStorage";
 import "./layout.css";
 
 function DashboardLayout() {
-  const role = localStorage.getItem("role");
+  const role = getAuthRole();
   const roleLabel =
     role === "admin"
       ? "Admin Panel"
