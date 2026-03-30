@@ -35,24 +35,30 @@ const login = async (req, res) => {
   }
 
   try {
+    console.log(`📡 Login attempt for email: [${email}]`);
     const user = await findUserByLoginEmail(email);
 
     if (!user) {
+      console.warn(`❌ User NOT found in database for email: ${email}`);
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
+    console.log(`✅ User found: ${user.name} (Role: ${user.role})`);
+    
     const storedPassword = user.password || '';
     const isBcryptHash = storedPassword.startsWith('$2a$') || storedPassword.startsWith('$2b$') || storedPassword.startsWith('$2y$');
 
     let isPasswordValid = false;
     if (isBcryptHash) {
       isPasswordValid = await bcrypt.compare(password, storedPassword);
+      console.log(`🔐 Bcrypt password check result: ${isPasswordValid}`);
     } else {
-      // Temporary fallback for legacy plain-text passwords.
       isPasswordValid = password === storedPassword;
+      console.log(`🔐 Plain-text fallback check result: ${isPasswordValid}`);
     }
 
     if (!isPasswordValid) {
+      console.warn(`❌ Password mismatch for user: ${email}`);
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 

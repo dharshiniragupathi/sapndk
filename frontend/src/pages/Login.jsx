@@ -14,8 +14,9 @@ function Login() {
     e.preventDefault();
     const normalizedEmail = String(email || "").trim().toLowerCase();
 
+    const apiBase = import.meta.env.VITE_API_BASE_URL || "";
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await axios.post(`${apiBase}/auth/login`, {
         email: normalizedEmail,
         password,
       });

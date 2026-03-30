@@ -1,4 +1,4 @@
-﻿
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
@@ -35,7 +35,7 @@ import "./AdminDashboard.css";
 
 const TABS = ["overview", "students", "staff", "subjects", "marks", "settings", "reports"];
 const MARKS_TABS = ["add", "view", "upload"];
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 const mbbsSubjects = [
   { code: "MBBS101", name: "Anatomy", department: "MBBS", year: "1st", maxMarks: MBBS_SUBJECT_TOTALS.MBBS101.maxMarks, passMarks: MBBS_SUBJECT_TOTALS.MBBS101.passMarks, credits: 4 },
