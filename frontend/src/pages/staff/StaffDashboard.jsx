@@ -575,7 +575,7 @@ function StaffDashboard() {
 
     const withAuth = (path) => {
       const separator = path.includes("?") ? "&" : "?";
-      const url = `http://localhost:5000${path}${separator}_ts=${Date.now()}`;
+      const url = `${path}${separator}_ts=${Date.now()}`;
       return fetch(url, {
         cache: "no-store",
         headers: {
@@ -881,7 +881,7 @@ function StaffDashboard() {
     const loadYearContacts = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/staff/me/year-staff?year=${encodeURIComponent(selectedYear)}&_ts=${Date.now()}`,
+          `/api/staff/me/year-staff?year=${encodeURIComponent(selectedYear)}&_ts=${Date.now()}`,
           {
             cache: "no-store",
             headers: {
@@ -927,7 +927,7 @@ function StaffDashboard() {
 
     const loadQueries = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/staff/me/queries?_ts=${Date.now()}`, {
+        const res = await fetch(`/api/staff/me/queries?_ts=${Date.now()}`, {
           cache: "no-store",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -1382,7 +1382,7 @@ function StaffDashboard() {
       return;
     }
     const submit = async () => {
-      const res = await fetch(`http://localhost:5000/api/staff/me/queries/${queryId}/reply`, {
+      const res = await fetch(`/api/staff/me/queries/${queryId}/reply`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -1445,7 +1445,7 @@ function StaffDashboard() {
     }
 
     const submit = async () => {
-      const res = await fetch("http://localhost:5000/api/staff/marks", {
+      const res = await fetch("/api/staff/marks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

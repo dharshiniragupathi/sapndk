@@ -750,12 +750,13 @@ function AdminDashboard() {
     });
 
     if (!response.ok) {
-      let message = "Request failed";
+      let message = `Request failed (${response.status})`;
       try {
         const err = await response.json();
         if (err?.message) message = err.message;
-      } catch {
-        // Ignore parse error and keep generic message.
+        console.error("📡 API Error:", err);
+      } catch (e) {
+        console.error("📡 API HTTP Error:", response.status, response.statusText);
       }
       throw new Error(message);
     }

@@ -391,7 +391,7 @@ function StudentDashboard() {
     const loadProfile = async () => {
       try {
         const [authRes, profileRes] = await Promise.all([
-          fetch(`http://localhost:5000/api/auth/me?_ts=${Date.now()}`, {
+          fetch(`/api/auth/me?_ts=${Date.now()}`, {
             cache: "no-store",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -399,7 +399,7 @@ function StudentDashboard() {
               Pragma: "no-cache",
             },
           }),
-          fetch(`http://localhost:5000/api/student/me/profile?_ts=${Date.now()}`, {
+          fetch(`/api/student/me/profile?_ts=${Date.now()}`, {
             cache: "no-store",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -464,7 +464,7 @@ function StudentDashboard() {
 
     const loadQueryFaculty = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/student/me/query-faculty?_ts=${Date.now()}`, {
+        const res = await fetch(`/api/student/me/query-faculty?_ts=${Date.now()}`, {
           cache: "no-store",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -512,7 +512,7 @@ function StudentDashboard() {
 
     const loadQueries = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/student/me/queries?_ts=${Date.now()}`, {
+        const res = await fetch(`/api/student/me/queries?_ts=${Date.now()}`, {
           cache: "no-store",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -554,7 +554,7 @@ function StudentDashboard() {
     const loadClassTop = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/student/me/class-top?exam_name=${encodeURIComponent(selectedExam)}&_ts=${Date.now()}`,
+          `/api/student/me/class-top?exam_name=${encodeURIComponent(selectedExam)}&_ts=${Date.now()}`,
           {
             cache: "no-store",
             headers: {
@@ -586,7 +586,7 @@ function StudentDashboard() {
 
     const loadReport = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/student/me/report?_ts=${Date.now()}`, {
+        const res = await fetch(`/api/student/me/report?_ts=${Date.now()}`, {
           cache: "no-store",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -852,7 +852,7 @@ function StudentDashboard() {
       return;
     }
     const post = async () => {
-      const res = await fetch("http://localhost:5000/api/student/me/queries", {
+      const res = await fetch("/api/student/me/queries", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
