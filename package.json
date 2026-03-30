@@ -4,7 +4,7 @@
   "description": "Unified React + Express Academic Performance Tracker for Vercel",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
-    "build": "npm install --prefix backend && npm run build --prefix frontend && mkdir -p dist && cp -rn frontend/dist/* dist/ && cp frontend/dist/index.html dist/index.html",
+    "build": "npm install --prefix backend && npm run build --prefix frontend && cp -rn frontend/dist/* ./",
     "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend"
   },
   "devDependencies": {
