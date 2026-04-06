@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index.js"
+      "destination": "https://student-academic-performance-normalizer.onrender.com/api/$1"
     },
     {
       "source": "/assets/(.*)",

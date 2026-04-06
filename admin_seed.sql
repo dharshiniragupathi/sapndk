@@ -2,8 +2,8 @@
 -- Pass: admin123
 -- Hash: $2b$10$5du07SMf3qJDdCiLwXTInR4romcxZkVyA.lRUbQuCldkf7I
 
-BEGIN;
 
+BEGIN;
 INSERT INTO users (name, email, password, role)
 VALUES (
   'Admin One', 
@@ -13,5 +13,6 @@ VALUES (
 )
 ON CONFLICT (email) DO UPDATE 
 SET password = EXCLUDED.password, role = 'admin';
-
+ROLLBACK;
+SELECT * FROM users LIMIT 1;
 COMMIT;
